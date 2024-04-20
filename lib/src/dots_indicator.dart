@@ -59,6 +59,11 @@ class DotsIndicator extends StatelessWidget {
               decorator.activeShapes.length == dotsCount,
           "activeShapes param in decorator must empty or have same length as dotsCount parameter",
         ),
+        assert(
+          decorator.animation == false ||
+              decorator.duration != null,
+          "duration is required to activate animation",
+        ),
         super(key: key);
 
   Widget _wrapInkwell(Widget dot, int index) {
@@ -80,24 +85,46 @@ class DotsIndicator extends StatelessWidget {
       lerpValue,
     )!;
 
-    final dot = Container(
-      width: size.width,
-      height: size.height,
-      margin: decorator.spacing,
-      decoration: ShapeDecoration(
-        color: Color.lerp(
-          decorator.getActiveColor(index) ?? Theme.of(context).primaryColor,
-          decorator.getColor(index),
-          lerpValue,
-        ),
-        shape: ShapeBorder.lerp(
-          decorator.getActiveShape(index),
-          decorator.getShape(index),
-          lerpValue,
-        )!,
-        shadows: decorator.shadows,
-      ),
-    );
+    
+    final dot = (decorator.animation)
+      ? AnimatedContainer(
+          duration: decorator.duration,
+          width: size.width,
+          height: size.height,
+          margin: decorator.spacing,
+          decoration: ShapeDecoration(
+            color: Color.lerp(
+              decorator.getActiveColor(index) ?? Theme.of(context).primaryColor,
+              decorator.getColor(index),
+              lerpValue,
+            ),
+            shape: ShapeBorder.lerp(
+              decorator.getActiveShape(index),
+              decorator.getShape(index),
+              lerpValue,
+            )!,
+            shadows: decorator.shadows,
+          ),
+        )
+      : Container(
+          width: size.width,
+          height: size.height,
+          margin: decorator.spacing,
+          decoration: ShapeDecoration(
+            color: Color.lerp(
+              decorator.getActiveColor(index) ?? Theme.of(context).primaryColor,
+              decorator.getColor(index),
+              lerpValue,
+            ),
+            shape: ShapeBorder.lerp(
+              decorator.getActiveShape(index),
+              decorator.getShape(index),
+              lerpValue,
+            )!,
+            shadows: decorator.shadows,
+          ),
+        );
+    }
     return onTap == null ? dot : _wrapInkwell(dot, index);
   }
 
