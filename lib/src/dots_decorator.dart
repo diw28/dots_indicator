@@ -81,6 +81,16 @@ class DotsDecorator {
   /// @Default `null`
   final List<BoxShadow>? shadows;
 
+  /// Animation of the dots
+  ///
+  /// @Default `false`
+  final bool animation;
+
+  /// Duration of the Animation
+  ///
+  /// @Default `null`
+  final Duration? duration;
+
   const DotsDecorator({
     this.color = Colors.grey,
     this.colors = const [],
@@ -96,6 +106,8 @@ class DotsDecorator {
     this.activeShapes = const [],
     this.spacing = kDefaultSpacing,
     this.shadows,
+    this.animation = false,
+    this.duration,
   });
 
   Color? getActiveColor(int index) {
