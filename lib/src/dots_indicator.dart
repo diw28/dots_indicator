@@ -88,7 +88,7 @@ class DotsIndicator extends StatelessWidget {
     
     final dot = (decorator.animation)
       ? AnimatedContainer(
-          duration: decorator.duration,
+          duration: decorator.duration!,
           width: size.width,
           height: size.height,
           margin: decorator.spacing,
