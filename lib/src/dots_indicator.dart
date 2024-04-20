@@ -124,7 +124,7 @@ class DotsIndicator extends StatelessWidget {
             shadows: decorator.shadows,
           ),
         );
-    }
+    
     return onTap == null ? dot : _wrapInkwell(dot, index);
   }
 
